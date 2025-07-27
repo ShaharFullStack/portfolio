@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>קורות חיים | שחר מעוז</title>
+    <style>
+        /* * General Styling 
+         * סגנונות כלליים
+        */
+        @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;700&display=swap');
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #2980b9;
+            --background-color: #f5f7fa;
+            --text-color: #333;
+            --container-bg: #ffffff;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Font definitions for each language */
+        .lang-he-font { font-family: 'Assistant', sans-serif; }
+        .lang-en-font { font-family: 'Segoe UI', sans-serif; }
+
+        .resume-container {
+            width: 100%;
+            max-width: 960px; /* Increased width for two columns */
+            margin: auto;
+            background: var(--container-bg);
+            padding: 2.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        
+        /* * Language & Print Controls 
+         * כפתורי שפה והדפסה
+        */
+        .controls {
+            display: flex;
+            justify-content: flex-end;
+            width: 100%;
+            max-width: 900px;
+            padding: 0 0 1rem 0;
+        }
+        .control-btn {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 0.6rem 0.8rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+            transition: background-color 0.3s ease;
+        }
+        .control-btn:hover {
+            background-color: #216a94;
+        }
+
+        /* * Header Section
+         * אזור הכותרת
+        */
+        header {
+            text-align: center;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        h1, h2, h3 {
+            color: var(--primary-color);
+        }
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0rem;
+            top: 0;
+            margin-top: -2rem
+        }
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+        .contact {
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+        a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* * Two-Column Layout
+         * פריסה דו-טורית
+        */
+        .resume-body {
+            display: flex;
+            flex-direction: row; /* Sidebar on the left for RTL (Hebrew), right for LTR (English) */
+            gap: 2.5rem;
+        }
+        html[dir="ltr"] .resume-body {
+            flex-direction: row-reverse;
+        }
+        .main-content {
+            flex: 2; /* Takes 2/3 of the space */
+        }
+        .sidebar {
+            background-image: linear-gradient(25deg, #bcd8ebb5, #c8f3ee93);
+            border: 1px solid #2980b9;
+            padding: 0.5rem;
+            flex: 1; /* Takes 1/3 of the space */
+        }
+        .sidebar .section {
+            margin-top: 0;
+            margin-bottom: 2rem;
+        }
+        .sidebar h2 {
+            font-size: 1.3rem;
+        }
+
+        /* * General Sections
+         * אזורים כלליים
+        */
+        .section {
+            margin-bottom: 2rem;
+        }
+        .section:last-child {
+            margin-bottom: 0;
+        }
+        .section p {
+            margin-top: 0;
+        }
+        ul {
+            padding-right: 20px;
+            list-style-position: outside;
+            margin: 0;
+        }
+        html[dir="ltr"] ul {
+            padding-right: 0;
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 0.5rem;
+        }
+        .project-link {
+            font-size: 0.95rem;
+        }
+
+        /* * Language Toggling Logic 
+         * לוגיקת החלפת שפה
+        */
+        .lang-en, .lang-he { display: none; }
+        .show-he .lang-he { display: inline; }
+        .show-en .lang-en { display: inline; }
+        .show-he .lang-he.block, .show-en .lang-en.block { display: block; }
+        .show-he .lang-he.list-item, .show-en .lang-en.list-item { display: list-item; }
+
+
+        /* * Responsive & Print Styles 
+         * סגנונות רספונסיביים והדפסה
+        */
+        @media (max-width: 768px) {
+            body { padding: 1rem; }
+            .resume-body {
+                flex-direction: column !important;
+            }
+        }
+        @media print {
+            @page {
+                size: A4;
+                margin: 2cm;
+            }
+            body {
+                background-color: #fff;
+                padding: 0;
+                -webkit-print-color-adjust: exact; /* Chrome, Safari */
+                print-color-adjust: exact; /* Standard */
+            }
+            .resume-container {
+                box-shadow: none;
+                margin: 0;
+                padding: 0;
+                max-width: 100%;
+                border-radius: 0;
+            }
+            .controls {
+                display: none;
+            }
+            a {
+                text-decoration: none;
+                color: inherit;
+            }
+            /* שמירה על פריסה דו-טורית בהדפסה */
+            .resume-body {
+                display: flex !important;
+                flex-direction: row !important;
+                gap: 2.5rem !important;
+            }
+            html[dir="ltr"] .resume-body {
+                flex-direction: row-reverse !important;
+            }
+        }
+    </style>
+</head>
+<body class="show-he lang-he-font">
+    <div class="controls">
+        <button id="printBtn" class="control-btn">
+            <span class="lang-he lang-he-font">הדפסה ל-PDF</span>
+            <span class="lang-en lang-en-font">Print to PDF</span>
+        </button>
+        <button id="langToggleBtn" class="control-btn">
+            <span class="lang-he lang-en-font">Switch to English</span>
+            <span class="lang-en lang-he-font">עבור לעברית</span>
+        </button>
+    </div>
+
+    <div class="resume-container">
+        <header>
+            <h1>
+                <span class="lang-he lang-he-font">שחר מעוז</span>
+                <span class="lang-en lang-en-font">Shahar Maoz</span>
+            </h1>
+            <div class="subtitle">
+                <span class="lang-he lang-he-font">מפתח EdTech ומוזיקאי | טכנולוג קריאייטיב ללמידה, משחקים והשראה מוזיקלית</span>
+                <span class="lang-en lang-en-font">EdTech Developer & Musician | Creative Technologist for Learning, Games & Musical Inspiration</span>
+            </div>
+            <div class="contact lang-en-font">
+                rakloze@gmail.com | +972-52-534-7274 <br>
+                 <a href="https://shaharportfolio.web.app" target="_blank">Portfolio</a> |
+                <a href="https://github.com/ShaharFullStack" target="_blank">GitHub</a> |
+                <a href="https://www.linkedin.com/in/shaharmh/" target="_blank">LinkedIn</a>
+            </div>
+        </header>
+
+        <div class="resume-body">
+            <main class="main-content">
+                <div class="section">
+                    <h2>
+                        <span class="lang-he lang-he-font">סיכום מקצועי</span>
+                        <span class="lang-en lang-en-font">Professional Summary</span>
+                    </h2>
+                    <p>
+                        <span class="lang-he lang-he-font">מפתח פול סטאק יצירתי, איש חינוך ומוזיקאי עם 3+ שנות ניסיון מקצועי בבניית יישומי רשת חינוכיים, מיצבים אינטראקטיביים וכלי נגישות, לצד 15+ שנות ניסיון ביצירת סביבות למידה טרנספורמטיביות. משלב הבנה עמוקה במוזיקה, חינוך והתנהגות אנושית עם כישורים טכניים מתקדמים כדי לספק מוצרים שמרתקים, מלמדים ומעניקים השראה. יכולת מוכחת להוביל מחזורי מוצר מלאים — משלב הרעיון ועד לפריסה.</span>
+                        <span class="lang-en lang-en-font">Creative full stack developer, educator, and musician with 3+ years of professional experience building educational web applications, interactive installations, and accessibility tools, alongside 15+ years of experience creating transformative learning environments. Combines deep understanding of music, education, and human behavior with advanced technical skills to deliver products that engage, teach, and inspire. Proven ability to lead full product cycles — from ideation to deployment.</span>
+                    </p>
+                </div>
+
+                <div class="section">
+                    <h2>
+                        <span class="lang-he lang-he-font">ניסיון מקצועי</span>
+                        <span class="lang-en lang-en-font">Professional Experience</span>
+                    </h2>
+                    <h3>
+                        <span class="lang-he lang-he-font">פרילנס | מפתח פול סטאק וטכנולוג קריאייטיב</span>
+                        <span class="lang-en lang-en-font">Freelance | Full Stack Developer & Creative Technologist</span>
+                        <span style="font-weight: normal" class="lang-en-font">(<span class="lang-he">2022 – היום</span><span class="lang-en">2022 – Present</span>)</span>
+                    </h3>
+                    <ul>
+                        <li class="list-item">
+                            <span class="lang-he lang-he-font">פיתח כלי EdTech ונגישות מותאמים אישית באמצעות WebGL, MediaPipe, וממשקי API מתקדמים של אודיו/וידאו</span>
+                            <span class="lang-en lang-en-font">Developed custom EdTech and accessibility tools using WebGL, MediaPipe, and advanced audio/visual APIs</span>
+                        </li>
+                        <li class="list-item">
+                            <span class="lang-he lang-he-font">בנה אתרי פורטפוליו ומסחר פול סטאק עבור יוצרים, כולל UX, עיצוב ופריסה</span>
+                            <span class="lang-en lang-en-font">Built full-stack portfolio and commerce websites for creatives, including UX, design, and deployment</span>
+                        </li>
+                        <li class="list-item">
+                            <span class="lang-he lang-he-font">סיפק פתרונות אוטומציה למוזיקאים ויוצרי תוכן באמצעות Node.js ו-Puppeteer</span>
+                            <span class="lang-en lang-en-font">Delivered automation solutions for musicians and content creators using Node.js and Puppeteer</span>
+                        </li>
+                        <li class="list-item">
+                            <span class="lang-he lang-he-font">עיצב משחקי למידה מבוססי דפדפן עם פיזיקה מציאותית ואינטראקציה מרתקת למשתמש</span>
+                            <span class="lang-en lang-en-font">Designed browser-based learning games with realistic physics and engaging user interaction</span>
+                        </li>
+                    </ul>
+        
+                    <h3>
+                        <span class="lang-he lang-he-font">איש חינוך מוזיקלי, מנהל אמנותי ומשלב טכנולוגיות</span>
+                        <span class="lang-en lang-en-font">Music Educator, Artistic Director & Tech Integrator</span>
+                        <span style="font-weight: normal" class="lang-en-font">(<span class="lang-he">2007 – 2022</span><span class="lang-en">2007 – 2022</span>)</span>
+                    </h3>
+                    <ul>
+                        <li class="list-item">
+                            <span class="lang-he lang-he-font">עיצב והוביל תכניות חינוכיות חדשניות המשלבות מוזיקה, UX וכלים דיגיטליים</span>
+                            <span class="lang-en lang-en-font">Designed and led innovative educational programs combining music, UX, and digital tools</span>
+                        </li>
+                        <li class="list-item">
+                            <span class="lang-he lang-he-font">העביר מפגשי מוזיקה מכילים עם ילדים עם מוגבלויות וילדים אוטיסטים במסגרות טיפוליות</span>
+                            <span class="lang-en lang-en-font">Conducted inclusive music sessions with disabled and autistic children in therapeutic settings</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="section">
+                    <h2>
+                        <span class="lang-he lang-he-font">זהות אמנותית</span>
+                        <span class="lang-en lang-en-font">Artistic Identity</span>
+                    </h2>
+                    <p>
+                        <span class="lang-he lang-he-font">את המסע האמנותי שלי התחלתי בגיל צעיר בנגינה בגיטרה קלאסית. בתיכון למדתי אומנות, בצבא למדתי אמינות ובהודו למדתי על עצמי.</span>
+                        <span class="lang-en lang-en-font">My artistic journey began with classical guitar. In high school, I explored visual arts. In the army, I learned reliability. In India, I learned about myself.</span>
+                        <span class="lang-he lang-he-font">באוניברסיטה הפתוחה למדתי קורסים ממוקדים בפסיכולוגיה של רגש, תפיסה חושית והשפעת סאונד וויזואל על חוויית האדם. לאחר מכן למדתי באקדמיה למוזיקה ולמחול בירושלים, שם העמקתי בביצוע, קומפוזיציה וחוויית הקהל.</span>
+                        <span class="lang-en lang-en-font">I studied focused courses at the Open University in the psychology of emotion, sensory perception, and how sound and visuals affect human experience. Later, at the Jerusalem Academy of Music and Dance, I deepened my practice in performance, composition, and audience experience.</span>
+                        <span class="lang-he lang-he-font">במהלך יותר מ־15 שנה הלחנתי, עיבדתי, הופעתי ולימדתי מוזיקה; ניהלתי מקהלות והרכבים (אחת מהן הופיעה בפני נשיא המדינה ונשיאת העליון), בניתי ותכנתתי כלי נגינה מקוריים, ולימדתי ילדים ליצור ולנגן בעצמם.</span>
+                        <span class="lang-en lang-en-font">For over 15 years, I’ve composed, arranged, performed, and taught music. I led choirs and ensembles (one performed for Israel’s president and chief justice), built and programmed original instruments, and taught children to create and play their own.</span>
+                        <span class="lang-he lang-he-font">לאחרונה משחק שכתבתי זכה במקום שני בתחרות בינלאומית, גם רגש הוא קוד, וקוד יכול לרגש.</span>
+                        <span class="lang-en lang-en-font">A game I developed won second place in an international competition – that’s when I realized: emotion is code, and code can move people.</span>
+                    </p>
+                </div>
+            </main>
+
+            <aside class="sidebar">
+                <div class="section">
+                    <h2>
+                        <span class="lang-he lang-he-font">כישורים</span>
+                        <span class="lang-en lang-en-font">Skills</span>
+                    </h2>
+                    <ul>
+                        <span class="lang-he">
+                            <li class="lang-he-font list-item"><strong>שפות ופריימוורקים:</strong> React, TypeScript, Node.js, Python, Firebase, SQL, MongoDB</li>
+                            <li class="lang-he-font list-item"><strong>כלים:</strong> Git, Docker, Figma, Webpack, Babel</li>
+                        </span>
+                        <span class="lang-en">
+                            <li class="lang-en-font list-item"><strong>Languages and Frameworks:</strong> React, TypeScript, Node.js, Python, Firebase, SQL, MongoDB</li>
+                            <li class="lang-en-font list-item"><strong>Tools:</strong> Git, Docker, Figma, Webpack, Babel</li>
+                            <li class="lang-en-font list-item"><strong>Creative Technologies:</strong> WebGL, Three.js, Tone.js, MediaPipe, Web Audio API, Puppeteer</li>
+                            <li class="lang-en-font list-item"><strong>DevOps:</strong> Docker, AWS, Git, CI/CD</li>
+                            <li class="lang-en-font list-item"><strong>Strengths:</strong> Creative problem solving, inclusive education, UX thinking, quick learning</li>
+                        </span>
+                    </ul>
+                </div>
+                
+                <div class="section">
+                    <h2>
+                        <span class="lang-he lang-he-font">פרויקטים</span>
+                        <span class="lang-en lang-en-font">Projects</span>
+                    </h2>
+                    <p>
+                        <strong class="lang-en-font">HandSynth:</strong>
+                        <span class="project-link"><a href="https://shaharfullstack.github.io/HandSynthBetter/" target="_blank">🔗 <span class="lang-he">הדגמה</span><span class="lang-en">Demo</span></a></span>
+                    </p>
+                    <p>
+                        <strong class="lang-en-font">Sfez Nadlan System:</strong>
+                        <span class="project-link"><a href="https://sfez-nadlan.web.app/" target="_blank">🔗 <span class="lang-he">לאתר</span><span class="lang-en">Site</span></a></span>
+                    </p>
+                    <p>
+                        <strong class="lang-en-font">Master-Stack.com:</strong>
+                        <span class="project-link"><a href="https://master-stack.com" target="_blank">🔗 <span class="lang-he">לאתר</span><span class="lang-en">Site</span></a></span>
+                    </p>
+                </div>
+                
+                <div class="section">
+                    <h2>
+                        <span class="lang-he lang-he-font">השכלה</span>
+                        <span class="lang-en lang-en-font">Education</span>
+                    </h2>
+                    <ul>
+                        <span class="lang-he">
+                            <li class="list-item lang-he-font">
+                                <strong>פיתוח פול סטאק</strong><br>
+                                ג'ון ברייס – 2023
+                            </li>
+                            <li class="list-item lang-he-font">
+                                <strong>פסיכולוגיה</strong><br>
+                                האוניברסיטה הפתוחה – 2008–2010
+                            </li>
+                            <li class="list-item lang-he-font">
+                                <strong>לימודי גיטרה</strong><br>
+                                האקדמיה למוסיקה – 2006–2008
+                            </li>
+                        </span>
+                        <span class="lang-en">
+                            <li class="list-item lang-en-font">
+                                <strong>Full Stack Development</strong><br>
+                                John Bryce – 2023
+                            </li>
+                            <li class="list-item lang-en-font">
+                                <strong>Psychology</strong><br>
+                                The Open University – 2008–2010
+                            </li>
+                            <li class="list-item lang-en-font">
+                                <strong>Guitar Studies</strong><br>
+                                Jerusalem Academy of Music – 2006–2008
+                            </li>
+                        </span>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h2>
+                        <span class="lang-he lang-he-font">שפות</span>
+                        <span class="lang-en lang-en-font">Languages</span>
+                    </h2>
+                    <p>
+                        <span class="lang-he lang-he-font">עברית – שפת אם</span><br>
+                        <span class="lang-en lang-en-font">Hebrew – Native</span>
+                    </p>
+                     <p>
+                        <span class="lang-he lang-he-font">אנגלית – רהוטה</span><br>
+                        <span class="lang-en lang-en-font">English – Fluent</span>
+                    </p>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const langToggleBtn = document.getElementById('langToggleBtn');
+            const printBtn = document.getElementById('printBtn');
+            const body = document.body;
+            const htmlEl = document.documentElement;
+
+            // Function to set language
+            const setLanguage = (lang) => {
+                if (lang === 'en') {
+                    body.classList.remove('show-he');
+                    body.classList.add('show-en');
+                    body.classList.remove('lang-he-font');
+                    body.classList.add('lang-en-font');
+                    htmlEl.dir = 'ltr';
+                    htmlEl.lang = 'en';
+                } else {
+                    body.classList.remove('show-en');
+                    body.classList.add('show-he');
+                    body.classList.remove('lang-en-font');
+                    body.classList.add('lang-he-font');
+                    htmlEl.dir = 'rtl';
+                    htmlEl.lang = 'he';
+                }
+            };
+
+            // Language switching logic
+            langToggleBtn.addEventListener('click', () => {
+                const currentLang = htmlEl.lang;
+                setLanguage(currentLang === 'he' ? 'en' : 'he');
+            });
+
+            // Print to PDF logic
+            printBtn.addEventListener('click', () => {
+                window.print();
+            });
+
+            // Set initial language based on browser settings or default to Hebrew
+            const userLang = navigator.language || navigator.userLanguage;
+            if (userLang.startsWith('en')) {
+                 setLanguage('en');
+            } else {
+                 setLanguage('he');
+            }
+        });
+    </script>
+</body>
+</html>

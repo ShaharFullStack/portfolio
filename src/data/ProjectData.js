@@ -39,7 +39,7 @@ export const ProjectList = [
     img: "/quoridor.png",
     title: "Quoridor Game",
     description:
-      "A two-player strategy game where the objective is to reach the opponent's side of the board first while blocking their path.",
+      "A single-player VS AI or two-player strategy game where the objective is to reach the opponent's side of the board first while blocking their path.",
     tech_stack: ["JavaScript", "HTML5", "CSS3", "Game Development"],
     github_url: "https://github.com/ShaharFullStack/Quoridor",
     demo_url: "https://shaharfullstack.github.io/Quoridor/",
