@@ -75,9 +75,15 @@ function Hero() {
                     "Let's create something amazing! 🎵",
                     500,
                     () => {
-                      const el = document.getElementById("projects");
-                      if (el) {
-                        el.scrollIntoView({ behavior: "smooth" });
+                      const heroSection = document.querySelector('main');
+                      const heroBottom = heroSection ? heroSection.offsetTop + heroSection.offsetHeight : 0;
+                      const currentScrollPosition = window.scrollY + window.innerHeight;
+                      
+                      if (currentScrollPosition <= heroBottom + 100) {
+                        const el = document.getElementById("projects");
+                        if (el) {
+                          el.scrollIntoView({ behavior: "smooth" });
+                        }
                       }
                     },
                   ]}
