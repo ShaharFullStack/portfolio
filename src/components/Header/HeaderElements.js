@@ -61,3 +61,22 @@ export const NavBtn = styled.div`
     display: none;
   }
 `;
+
+export const SocialLinks = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-right: 1rem;
+
+  a {
+    color: rgb(119, 119, 121);
+    font-size: 1.5rem;
+    &:hover {
+      color: #f6f6f6;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`;

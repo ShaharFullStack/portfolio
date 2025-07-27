@@ -1,5 +1,5 @@
 import React from "react";
-import { FaLinkedin, FaGithub, FaFacebook, FaXTwitter } from "react-icons/fa6";
+import { FaLinkedin, FaGithub, FaFacebook, FaXTwitter, FaWhatsapp } from "react-icons/fa6";
 import styled from "@emotion/styled";
 import ScrollAnimation from "react-animate-on-scroll";
 
@@ -91,6 +91,15 @@ function FixSocialIcon() {
               rel="noopener noreferrer"
             >
               <FaFacebook />
+            </a>
+          </li>
+          <li className="item">
+            <a
+              href="https://wa.me/972525327274"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaWhatsapp />
             </a>
           </li>
         </ul>
